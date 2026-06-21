@@ -20,9 +20,10 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-display: "Anek Bangla", "Hind Siliguri", system-ui, sans-serif;
-  --font-serif: "Noto Serif Bengali", "Tiro Bangla", serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display:
+    "Anek Bangla", "Hind Siliguri", "Nirmala UI", "Noto Sans Bengali", system-ui, sans-serif;
+  --font-serif: "Noto Serif Bengali", "Nirmala UI", "Vrinda", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
 }
 
 :root {
@@ -56,7 +57,10 @@
     color: var(--color-foreground);
     font-family: var(--font-display);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-optical-sizing: auto;
+    font-synthesis: none;
   }
   h1,
   h2,
