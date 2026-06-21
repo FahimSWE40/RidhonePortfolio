@@ -8,9 +8,10 @@ An editorial, single-page author profile (লেখক পরিচিতি) fo
 
 - **Editorial single-page design** — hero, an animated marquee, and chaptered sections (পরিচয় · যাত্রা · জগৎ · দর্শন · কথা).
 - **Living animated background** — slowly drifting gold/navy gradient orbs, an aurora sweep, film grain, and a vignette.
-- **Fully responsive** — mobile-first layouts with a hamburger menu; scales cleanly from phones to large screens.
+- **Fully responsive** — mobile-first layouts with a hamburger menu, anchor scroll-offset, and tactile tap feedback; scales cleanly from small phones to large screens.
 - **Motion throughout** — scroll-reveal sections, a reading-progress bar, parallax hero, and a back-to-top control (all respecting `prefers-reduced-motion`).
-- **Bengali-first typography** — Anek Bangla, Noto Serif Bengali, Tiro Bangla & JetBrains Mono, with tuned line-heights.
+- **Polished loading** — a gold shimmer skeleton holds the portrait's space and fades into the image once it loads (no layout shift).
+- **Bengali-first typography** — Anek Bangla (body) and Noto Serif Bengali (display) loaded across their full weight range, with Nirmala UI / Noto Sans Bengali system fallbacks and JetBrains Mono for labels.
 - **SSR** via TanStack Start with a graceful error boundary + fallback page.
 - **Content-driven** — all copy lives in one data file, decoupled from markup.
 
@@ -22,6 +23,7 @@ An editorial, single-page author profile (লেখক পরিচিতি) fo
 - **[Vite](https://vite.dev)** — dev server & build
 - **[Tailwind CSS v4](https://tailwindcss.com)** — styling via `@tailwindcss/vite`
 - **[Motion](https://motion.dev)** — scroll & entrance animations
+- **[Nitro](https://nitro.build)** — production server build & host auto-detection (Vercel, Node, …)
 
 ## 🚀 Getting started
 
@@ -33,14 +35,14 @@ npm install
 npm run dev
 ```
 
-> If port `8080` is in use, Vite automatically picks the next free port (e.g. `8081`).
+> Requires **Node 22.x**. If port `8080` is in use, Vite automatically picks the next free port (e.g. `8081`).
 
 ### Scripts
 
 | Command             | Description                          |
 | ------------------- | ------------------------------------ |
 | `npm run dev`       | Start the Vite dev server with HMR   |
-| `npm run build`     | Production build                     |
+| `npm run build`     | Production build (via Nitro)         |
 | `npm run build:dev` | Build using development mode         |
 | `npm run preview`   | Preview the production build locally |
 | `npm run lint`      | Run ESLint                           |
@@ -52,7 +54,7 @@ npm run dev
 src/
 ├─ assets/                 Static image assets (portrait)
 ├─ components/
-│  ├─ common/              Reusable primitives (Section, Stat)
+│  ├─ common/              Reusable primitives (Section, Stat, Skeleton)
 │  ├─ layout/              Page chrome (Nav, Footer, ScrollProgress, BackToTop, AmbientBackground)
 │  └─ sections/            Page sections (Hero, MarqueeStrip, About, Journey, Worlds, Philosophy, ClosingQuote)
 ├─ data/
@@ -79,12 +81,12 @@ src/
 
 ## ☁️ Deployment
 
-The app builds to a standard SSR output and can be deployed to any Node-compatible host (Vercel, Netlify, Render, etc.):
+Production builds run through **Nitro**, which auto-detects the host:
 
-```bash
-npm run build      # outputs to dist/
-npm run preview    # smoke-test the production build locally
-```
+- **Vercel** — connect the repo to a Vercel project and deploy. During the build (`VERCEL=1` is set automatically), Nitro emits the Vercel Build Output API to `.vercel/output`; Vercel serves the static assets and runs SSR as a serverless function. The function runtime is pinned to **Node 22.x** via the `engines` field.
+- **Node / other hosts** — `npm run build` produces a `node-server` bundle in `.output/`; smoke-test it locally with `npm run preview`.
+
+To force a specific target, set `NITRO_PRESET` (e.g. `NITRO_PRESET=node-server npm run build`).
 
 ## License
 
