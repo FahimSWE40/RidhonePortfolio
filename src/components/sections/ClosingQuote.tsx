@@ -19,7 +19,7 @@ export function ClosingQuote() {
         <div className="relative max-w-4xl">
           <div className="mb-8 flex items-center gap-4">
             <span className="h-px w-16 bg-gold" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-gold sm:tracking-[0.35em]">
               সবশেষে
             </span>
           </div>

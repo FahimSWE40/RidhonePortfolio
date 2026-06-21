@@ -1,15 +1,25 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ratulImg from "@/assets/ratul.png";
 import { Stat } from "@/components/common/Stat";
+import { Skeleton } from "@/components/common/Skeleton";
 import { fadeUp, EASE_OUT } from "@/lib/motion";
 import { identities, stats } from "@/data/profile";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const imageY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const titleY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+
+  // Portrait skeleton: show shimmer until the image finishes loading.
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  useEffect(() => {
+    // The image may already be cached/complete before hydration runs.
+    if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) setImgLoaded(true);
+  }, []);
 
   return (
     <section
@@ -41,7 +51,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/70" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.35em] text-gold/80">
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80 sm:tracking-[0.35em]">
               পরিচয়
             </span>
           </div>
@@ -75,7 +85,7 @@ export function Hero() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + i * 0.05 }}
-                className="rounded-full border border-border bg-card/40 px-4 py-1.5 text-sm text-foreground/85 backdrop-blur-md hover:border-gold/60 hover:text-gold transition-colors"
+                className="rounded-full border border-border bg-card/40 px-4 py-1.5 text-sm text-foreground/85 backdrop-blur-md transition hover:border-gold/60 hover:text-gold active:scale-95"
               >
                 {id}
               </motion.span>
@@ -85,7 +95,7 @@ export function Hero() {
           <div className="mt-12 flex flex-wrap items-center gap-4">
             <a
               href="#about"
-              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-gold-deep via-gold to-gold-soft px-7 py-3 text-sm font-medium text-ink shadow-[0_10px_40px_-10px_oklch(0.75_0.16_80/0.6)] hover:shadow-[0_20px_60px_-10px_oklch(0.75_0.16_80/0.8)] transition-all"
+              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-gold-deep via-gold to-gold-soft px-7 py-3 text-sm font-medium text-ink shadow-[0_10px_40px_-10px_oklch(0.75_0.16_80/0.6)] transition-all hover:shadow-[0_20px_60px_-10px_oklch(0.75_0.16_80/0.8)] active:scale-[0.97]"
             >
               পরিচয় জানুন
               <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -138,10 +148,16 @@ export function Hero() {
             </div>
 
             <div className="gold-glow group relative overflow-hidden rounded-[2rem] border border-gold/40 bg-card shadow-[0_30px_80px_-20px_oklch(0_0_0/0.6)]">
+              {!imgLoaded && <Skeleton className="absolute inset-0 z-10 rounded-none" />}
               <img
+                ref={imgRef}
                 src={ratulImg}
                 alt="মো: রিদওয়ান তাসকিন রাতুল"
-                className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                onLoad={() => setImgLoaded(true)}
+                className={cn(
+                  "aspect-[4/5] w-full object-cover transition-[transform,opacity] duration-700 group-hover:scale-[1.04]",
+                  imgLoaded ? "opacity-100" : "opacity-0",
+                )}
               />
               {/* gold corner accents */}
               <div className="pointer-events-none absolute left-3 top-3 h-6 w-6 border-l-2 border-t-2 border-gold" />

@@ -74,6 +74,17 @@
     color: var(--color-foreground);
   }
 
+  /* Offset anchored sections so the sticky nav doesn't cover their headings */
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  /* Kill the blue tap-highlight flash on mobile */
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   /* Gold-tinted scrollbar */
   * {
     scrollbar-width: thin;
@@ -301,6 +312,30 @@
   );
   background-size: 250% 250%;
   animation: aurora 22s ease-in-out infinite;
+}
+
+/* Gold-tinted skeleton shimmer for loading placeholders */
+@keyframes skeleton-sweep {
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 150% 0;
+  }
+}
+@utility skeleton {
+  background-color: oklch(0.12 0.02 260);
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    oklch(0.78 0.135 82 / 0.1) 40%,
+    oklch(0.88 0.1 88 / 0.16) 50%,
+    oklch(0.78 0.135 82 / 0.1) 60%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: skeleton-sweep 1.5s ease-in-out infinite;
 }
 
 @keyframes grain-shift {

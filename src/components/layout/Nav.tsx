@@ -44,7 +44,7 @@ export function Nav() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}
           aria-expanded={open}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold transition active:scale-90 md:hidden"
         >
           <svg
             viewBox="0 0 24 24"
@@ -74,7 +74,7 @@ export function Nav() {
                   key={href}
                   href={href}
                   onClick={() => setOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-base text-muted-foreground transition-colors hover:bg-card hover:text-gold"
+                  className="rounded-lg px-3 py-3 text-base text-muted-foreground transition hover:bg-card hover:text-gold active:scale-[0.98]"
                 >
                   {label}
                 </a>

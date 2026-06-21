@@ -10,7 +10,7 @@ export function Journey() {
         {/* vertical line */}
         <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gold/40 to-transparent md:-translate-x-px" />
 
-        <div className="space-y-12">
+        <div className="space-y-10 sm:space-y-12">
           {journey.map((j, i) => {
             const left = i % 2 === 0;
             return (

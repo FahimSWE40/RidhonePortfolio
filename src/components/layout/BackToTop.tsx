@@ -18,7 +18,7 @@ export function BackToTop() {
           transition={{ duration: 0.3, ease: EASE_OUT }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="উপরে ফিরে যান"
-          className="group fixed bottom-6 right-6 z-[60] flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-background/70 text-gold backdrop-blur-md transition-colors hover:bg-gold hover:text-ink"
+          className="group fixed bottom-5 right-5 z-[60] flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-background/70 text-gold backdrop-blur-md transition-colors hover:bg-gold hover:text-ink active:scale-90 sm:bottom-6 sm:right-6"
         >
           <svg
             viewBox="0 0 24 24"

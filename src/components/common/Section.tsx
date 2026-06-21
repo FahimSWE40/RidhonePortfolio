@@ -12,7 +12,7 @@ type SectionProps = {
 /** Chapter-style content section with a big ghosted numeral and eyebrow. */
 export function Section({ id, num, eyebrow, title, children }: SectionProps) {
   return (
-    <section id={id} className="relative mx-auto max-w-7xl px-5 py-20 sm:px-6 md:py-32">
+    <section id={id} className="relative mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-20 md:py-32">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -29,7 +29,7 @@ export function Section({ id, num, eyebrow, title, children }: SectionProps) {
             </div>
           </div>
           <div className="md:col-span-9 md:border-l md:border-border/60 md:pl-10">
-            <div className="mb-3 text-[11px] uppercase tracking-[0.4em] text-gold/80 md:mb-4">
+            <div className="mb-3 text-[11px] uppercase tracking-[0.2em] text-gold/80 sm:tracking-[0.35em] md:mb-4">
               {eyebrow}
             </div>
             <h2 className="font-serif font-bold text-4xl leading-[1.1] sm:text-5xl md:text-7xl">
