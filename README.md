@@ -88,4 +88,4 @@ npm run preview    # smoke-test the production build locally
 
 ## License
 
-All rights reserved © রিদওয়ান তাসকিন রাতুল.
+All rights reserved © **[Fahim](https://github.com/FahimSWE40)**
